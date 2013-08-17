@@ -11,9 +11,12 @@ using std::string;
 void parseArgs(int argc, char* argv[], string& in, string& out);
 int main(int argc, char* argv[]) {
     string in, out;
-    parseArgs(argc, argv, in, out);
-    cout << "in: [" << in << "]" << endl;
-    cout << "out: [" << out << "]" << endl;
+    { // init in, out
+        parseArgs(argc, argv, in, out);
+        cout << "in: [" << in << "]" << endl;
+        cout << "out: [" << out << "]" << endl;
+    }
+    
     
 }
 bool isHelpArg(char* arg) {
