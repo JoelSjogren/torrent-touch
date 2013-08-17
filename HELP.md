@@ -1,5 +1,5 @@
 ## NAME ##
-toouch - replicate torrent file lists
+toouch - replicate torrent file tree
 
 ## SYNOPSIS ##
 toouch [OPTIONS] [TORRENT or MAGNET-LINK] [OUTPUT-DIRECTORY]
