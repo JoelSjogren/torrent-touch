@@ -2,7 +2,7 @@
 toouch - replicate torrent file lists
 
 ## SYNOPSIS ##
-touch [OPTIONS] [TORRENT or MAGNET-LINK] [OUTPUT-DIRECTORY]
+toouch [OPTIONS] [TORRENT or MAGNET-LINK] [OUTPUT-DIRECTORY]
 
 ## OPTIONS ##
 
