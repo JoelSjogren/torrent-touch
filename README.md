@@ -9,6 +9,7 @@ Packages needed:
 
  - scons
  - libtorrent-rasterbar-dev
+ - libboost-filesystem-dev
 
 To compile, run:
 
