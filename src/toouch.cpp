@@ -1,70 +1,60 @@
-#include "help.h"
-#include "build_no.h"
+/**********************************
+*  toouch.cpp                     *
+*                                 *
+*  by Joel Sjögren                *
+**********************************/
+#define BOOST_FILESYSTEM_VERSION 2
+#include "fileman.h"
+#include "args.h"
 #include <iostream>
-#include <cstring>
-#include <cstdlib>
+#include <fstream>
+#include <iterator>
+#include <iomanip>
+#include <libtorrent/entry.hpp>
+#include <libtorrent/bencode.hpp>
+#include <libtorrent/torrent_info.hpp>
+#include <libtorrent/lazy_entry.hpp>
+#include <boost/filesystem/operations.hpp>
 #include <string>
 using std::cout;
 using std::endl;
 using std::cerr;
 using std::string;
-void parseArgs(int argc, char* argv[], string& in, string& out);
+using std::vector;
+using std::ifstream;
+using std::ios_base;
+using boost::filesystem::file_size;
+using libtorrent::lazy_entry;
+using libtorrent::torrent_info;
+void touchAll(string in, string out);
+void errorExit(const char* msg);
 int main(int argc, char* argv[]) {
     string in, out;
-    { // init in, out
-        parseArgs(argc, argv, in, out);
-        cout << "in: [" << in << "]" << endl;
-        cout << "out: [" << out << "]" << endl;
-    }
-    
-    
+    parseArgs(argc, argv, in, out);
+    cout << "in: `" << in << "'" << endl;
+    cout << "out: `" << out << "'" << endl;
+    touchAll(in, out);
+    FileMan::dig(out);
 }
-bool isHelpArg(char* arg) {
-    return !(strcmp(arg, "-h") && strcmp(arg, "--help"));
+void errorExit(const char* msg) {
+    cerr << "E: " << msg << endl;
+    exit(1);
 }
-bool isBuildNoArg(char* arg) {
-    return !(strcmp(arg, "-b") && strcmp(arg, "--build-no"));
-}
-void argErrorExit(const char* msg, const char* app) {
-        cerr << "E: " << msg << endl;
-        cerr << "Try `" << app
-             << " --help' for more information." << endl;
-        exit(1);
-}
-void parseArgs(int argc, char* argv[], string& in, string& out) {
-    bool printHelp = false;
-    bool printBuildNo = false;
-    int nonoptc = 0; // number of non-option arguments processed
-    for (int i = 1; i < argc; i++) {
-        if (isHelpArg(argv[i])) {
-            printHelp = true;
-        } else if (isBuildNoArg(argv[i])) {
-            printBuildNo = true;
-        } else if (argv[i][0] == '-') {
-            argErrorExit("Invalid argument.", argv[0]);
-        } else {
-            if (nonoptc == 0) in = argv[i];
-            if (nonoptc == 1) out = argv[i];
-            nonoptc++;
-        }
-    }
-    if (nonoptc < 2) argErrorExit("Too few arguments.", argv[0]);
-    if (nonoptc > 2) argErrorExit("Too many arguments.", argv[0]);
-    { // just print help message or build number if requested
-        if (printHelp) {
-            for (int i = 0; i < ___HELP_md_len; i++)
-                cout << ___HELP_md[i];
-            cout << endl;
-        }
-        if (printBuildNo) {
-            for (int i = 0; i < build_no_txt_len; i++)
-                cout << build_no_txt[i];
-            cout << endl;
-        }
-        if (printHelp || printBuildNo) exit(0);
+void touchAll(string in, string out) {
+    int size = file_size(in);
+    vector<char> buf(size);
+    ifstream(in.c_str(), ios_base::binary).read(&buf[0], size);
+    lazy_entry e;
+    int ret = lazy_bdecode(&buf[0], &buf[0] + buf.size(), e);
+    if (ret != 0) errorExit("invalid bencoding");
+    torrent_info t(e);
+    int index = 0;
+    for (torrent_info::file_iterator i = t.begin_files();
+         i != t.end_files(); ++i, ++index) {
+//        std::cout << i->path.string() << std::endl;
+        FileMan::touch(out + i->path.string());
     }
 }
-
 
 
 

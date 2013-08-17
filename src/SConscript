@@ -1,7 +1,7 @@
 ###################################
 #  SConscript                     #
 #                                 #
-#  Builds vorg, test-suite.       #
+#  Builds toouch.                 #
 ###################################
 import subprocess
 import os
@@ -34,8 +34,9 @@ with open(help_cpp, 'w') as help_file:
 
 ### what to link ###
 env = Environment()
-link = env.Object(['build_no.cpp', 'help.cpp'])
-LIBS = []#'boost_regex', 'boost_filesystem', 'boost_system']
+link = env.Object(
+    ['build_no.cpp', 'help.cpp', 'fileman.cpp', 'args.cpp'])
+LIBS = ['boost_filesystem', 'torrent-rasterbar', 'boost_system']
 
 ### build ###
 vorg = env.Program('../toouch', ['toouch.cpp'] + link, LIBS=LIBS)

@@ -8,7 +8,7 @@ The purpose of this text-based application is to do what a torrent client would:
 Packages needed:
 
  - scons
- - libtorrent
+ - libtorrent-rasterbar-dev
 
 To compile, run:
 
