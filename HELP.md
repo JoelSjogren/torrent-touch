@@ -18,7 +18,7 @@ MAGNET-LINK is a magnet link, e.g.
 
 OUTPUT-DIRECTORY is the root of the output tree, e.g.
 
- - .
+ - . (*default*)
 
     -h, --help
         just show this text

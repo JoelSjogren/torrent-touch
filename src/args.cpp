@@ -40,9 +40,6 @@ void parseArgs(int argc, char* argv[], string& in, string& out) {
         }
     }
     out += "/";
-    // nonoptc is 1 if only *in* specified, 2 if both *in* and *out*
-    if (nonoptc == 0) argErrorExit("Missing file operand.", argv[0]);
-    if (nonoptc >= 3) argErrorExit("Too many arguments.", argv[0]);
     { // just print help message or build number if requested
         if (printHelp) {
             for (int i = 0; i < ___HELP_md_len; i++)
@@ -56,4 +53,7 @@ void parseArgs(int argc, char* argv[], string& in, string& out) {
         }
         if (printHelp || printBuildNo) exit(0);
     }
+    // nonoptc is 1 if only *in* specified, 2 if both *in* and *out*
+    if (nonoptc == 0) argErrorExit("Missing file operand.", argv[0]);
+    if (nonoptc >= 3) argErrorExit("Too many arguments.", argv[0]);
 }
