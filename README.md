@@ -1,5 +1,5 @@
 ## NAME ##
-toouch - replicate torrent file lists
+toouch - replicate torrent file tree
 
 ## DESCRIPTION ##
 The purpose of this text-based application is to do what a torrent client would: create a directory and fill it with files specified by a torrent or magnet link. This application, however, only touches the files. Thus, every file has size 0.
