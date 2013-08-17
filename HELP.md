@@ -16,9 +16,7 @@ MAGNET-LINK is a magnet link, e.g.
 
  - magnet:?xt=urn:sha1:YNCKHTQCWBTRNJIV4WNAE52SJUQCZO5C
 
-OUTPUT-DIRECTORY is the root of the output tree, e.g.
-
- - . *default*
+OUTPUT-DIRECTORY is the root of the output tree. default is `./' .
 
     -h, --help
         just show this text
