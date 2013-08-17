@@ -16,7 +16,7 @@ touch [OPTIONS] [TORRENT or MAGNET-LINK] [OUTPUT-DIRECTORY]
 
  - magnet:?xt=urn:sha1:YNCKHTQCWBTRNJIV4WNAE52SJUQCZO5C (not yet implemented)
 
-**OUTPUT-DIRECTORY** is the root of the output tree. default is `./' .
+**OUTPUT-DIRECTORY** is the root of the output tree. default is ./
 
     -h, --help
         just show this text
